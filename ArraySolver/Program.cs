@@ -30,7 +30,21 @@ namespace ArraySolver.ConsoleApp
             var solver = new ArraySolverRepository();
             solver.globalArray = array;
             Console.WriteLine(solver.IsWinnable(array));
-            
+            solver.Path.Reverse();
+            solver.StepSize.Reverse();
+            Console.WriteLine();
+            Console.WriteLine("Shortest path:");
+            foreach (var item in solver.Path)
+            {
+                Console.Write(item + " ");
+            }
+            Console.WriteLine();
+            Console.WriteLine("Steps taken between each node:");
+            foreach (var item in solver.StepSize)
+            {
+                Console.Write(item + " ");
+            }
+
 
         }
     }
