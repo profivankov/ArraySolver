@@ -8,6 +8,11 @@ namespace ArraySolver.Implementation.Services
 {
     public class OutputService : IOutputService
     {
+        private ICacheService _cacheService;
+        public OutputService(ICacheService cacheService)
+        {
+            _cacheService = cacheService;
+        }
         public string PrepareOutput(int[] array, Stack<int> path, bool failure)
         {
             var steps = path.Count();
@@ -40,6 +45,26 @@ namespace ArraySolver.Implementation.Services
             }
 
             return resultString + Environment.NewLine;
+        }
+
+        public string PrepareCacheOutput()
+        {
+            var results = (Environment.NewLine + "Cache:");
+
+            var cacheAll = _cacheService.GetCacheDisplay();
+            for (int i = 1; i <= cacheAll.Count(); i++)
+            {
+                if (i % 2 != 0)
+                {
+                    results += Environment.NewLine + ("Array: " + cacheAll[i - 1]);
+                }
+                else
+                {
+                    results += Environment.NewLine + ("Indices of steps: " + cacheAll[i - 1]);
+                }
+            }
+
+            return results;
         }
     }
 }

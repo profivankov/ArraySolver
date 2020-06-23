@@ -6,7 +6,5 @@ using System.Text;
 namespace ArraySolver.Implementation
 {
     public class FileRepository
-    {
-
-    }
+    {   }
 }

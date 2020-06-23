@@ -6,5 +6,6 @@ namespace ArraySolver.Interfaces.Services
 {
     public interface IFileService
     {
+        public List<int[]> ReadArray();
     }
 }

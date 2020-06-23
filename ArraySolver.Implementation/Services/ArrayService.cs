@@ -9,12 +9,10 @@ namespace ArraySolver.Implementation.Services
 {
     public class ArrayService : IArrayService
     {
-        private readonly IArrayRepository _arrayRepository;
         public bool Failure { get; set; } // need to reset when calling
-        public ArrayService(IArrayRepository arrayRepository)
+        public ArrayService()
         {
             Failure = false;
-            _arrayRepository = arrayRepository;
         }
 
         public int[] FindPath(int[] array)
