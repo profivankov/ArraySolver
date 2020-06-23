@@ -7,11 +7,7 @@ namespace ArraySolver.Implementation
 {
     public class ArrayRepository : IArrayRepository
     {
-       
         public ArrayRepository()
         {        }
-
-       
-
     }
 }

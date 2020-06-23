@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ArraySolver.Interfaces.Repositories
+namespace ArraySolver.Interfaces.Services
 {
-    public interface IFileRepository
+    public interface IOutputService
     {
     }
 }

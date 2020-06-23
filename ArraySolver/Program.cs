@@ -10,29 +10,34 @@ namespace ArraySolver.ConsoleApp
     {
         static void Main(string[] args)
         {
-
-            //StreamReader file;
-            //string line = "";
-            //file = new StreamReader(@"C:\Users\BonBon\source\repos\ArraySolver\ArraySolver\array.txt");
-            //var numberList = new List<int>();
-
-            ////read numbers into array from file
-            //while ((line = file.ReadLine()) != null)
-            //{
-            //    var strArray = line.Split(' ');
-            //    foreach(var item in strArray)
-            //    {
-            //        numberList.Add(Convert.ToInt32(item));
-            //    }
-            //}
-
             var solver = new ArrayService(new ArrayRepository());
-            var reader = new FileRepository();
-            var array = reader.ReadArray();
+            var reader = new FileService();
+            var output = new OutputService();
+            var cache = new CacheService();
 
-            solver.SolveArray(array);
+            var listOfArrays = reader.ReadArray();
+            var path = new Stack<int>();
 
+            foreach (var array in listOfArrays)
+            {
+                var pathFromCache = cache.SearchCacheForSteps(array);
+                if (pathFromCache == null)
+                {
+                    path = solver.ReversePath(solver.FindPath(array));
+                    if (!solver.Failure) // don't save to cache if it's unreachable
+                    {
+                        cache.AddCacheToRepository(array, path);
+                    }
+                }
+                else
+                {
+                    path = pathFromCache;
+                }
 
+                Console.Write(output.PrepareOutput(array, path, solver.Failure));
+                solver.Failure = false;
+            }
+            
         }
     }
 }
