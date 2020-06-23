@@ -7,7 +7,7 @@ namespace ArraySolver.Interfaces.Services
     public interface ICacheService
     {
         public List<string> GetCacheDisplay();
-        public void AddCacheToRepository(int[] array, Stack<int> path);
-        public Stack<int> GetCacheByArray(int[] array);
+        public void AddCacheToRepository(int[] array, List<int> path);
+        public List<int> GetCacheByArray(int[] array);
     }
 }

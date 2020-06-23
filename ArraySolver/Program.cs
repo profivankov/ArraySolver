@@ -10,7 +10,7 @@ namespace ArraySolver.ConsoleApp
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             var arrayService = new ArrayService();
             var fileService = new FileService();
@@ -21,16 +21,14 @@ namespace ArraySolver.ConsoleApp
             {
                 var listOfArrays = fileService.ReadArray();
 
-                var path = new Stack<int>();
+                var path = new List<int>();
 
                 foreach (var array in listOfArrays)
                 {
                     var pathFromCache = cacheService.GetCacheByArray(array);
                     if (pathFromCache == null)
                     {
-
-                        path = arrayService.ReversePath(arrayService.FindPath(array));
-
+                        path = arrayService.FindPath(array);
 
                         if (!arrayService.Failure) // don't save to cache if it's unreachable
                         {
@@ -46,10 +44,7 @@ namespace ArraySolver.ConsoleApp
                     arrayService.Failure = false;
                 }
 
-            
-
-
-            Console.WriteLine("Would you like to see all of the cached arrays? Y/N");
+                Console.WriteLine("Would you like to see all of the cached arrays? Y/N");
 
                 ConsoleKey response;
                 do

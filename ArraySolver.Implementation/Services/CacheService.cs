@@ -32,8 +32,9 @@ namespace ArraySolver.Implementation.Services
 
             return results;
         }
-        public void AddCacheToRepository(int[] array, Stack<int> path)
+        public void AddCacheToRepository(int[] array, List<int> path)
         {
+            path.Reverse();
             using (var writer = new StreamWriter(cachePath, true))
             {
                 writer.Write(string.Join(",", array) + Environment.NewLine);
@@ -42,7 +43,7 @@ namespace ArraySolver.Implementation.Services
             }
         }
 
-        public Stack<int> GetCacheByArray(int[] array)
+        public List<int> GetCacheByArray(int[] array)
         {
             if (!File.Exists(cachePath))
             {
@@ -59,11 +60,9 @@ namespace ArraySolver.Implementation.Services
                 }
             }
 
-            result.Reverse();
-
             if (result.Any())
             {
-                return new Stack<int>(result);
+                return result;
             }
             else
             {

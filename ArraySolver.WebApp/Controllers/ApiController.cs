@@ -23,15 +23,14 @@ namespace ArraySolver.WebApp.Controllers
             _outputService = outputService;
         }
 
-
-        //method for a single array
+        //works with a single array, tested with postman
         [HttpPost]
         public string GetPath([FromBody] string array)
         {
 
             var strArray = array.Split(','); // create string array
             var numberList = new List<int>();
-            var path = new Stack<int>();
+            var path = new List<int>();
             var results = "";
 
             try
@@ -41,7 +40,7 @@ namespace ArraySolver.WebApp.Controllers
 
                 if (pathFromCache == null)
                 {
-                    path = _arrayService.ReversePath(_arrayService.FindPath(numberList.ToArray()));
+                    path = _arrayService.StorePath(_arrayService.GetReach(numberList.ToArray()));
                     if (!_arrayService.Failure) // don't save to cache if it's unreachable
                     {
                         _cacheService.AddCacheToRepository(numberList.ToArray(), path);

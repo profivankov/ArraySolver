@@ -1,5 +1,4 @@
-﻿using ArraySolver.Interfaces.Repositories;
-using ArraySolver.Interfaces.Services;
+﻿using ArraySolver.Interfaces.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +8,18 @@ namespace ArraySolver.Implementation.Services
 {
     public class ArrayService : IArrayService
     {
-        public bool Failure { get; set; } // need to reset when calling
+        public bool Failure { get; set; }
         public ArrayService()
         {
             Failure = false;
         }
 
-        public int[] FindPath(int[] array)
+        public List<int> FindPath(int[] array)
+        {
+            return StorePath(GetReach(array));
+        }
+
+        public int[] GetReach(int[] array)  // checks which farthest number on the left reaches the end number, then jumps to it and repeats with the new number as the end  
         {
             var reachLeft = new int[array.Length];
             reachLeft[0] = -1;
@@ -31,10 +35,11 @@ namespace ArraySolver.Implementation.Services
                 }
             }
 
+
             return reachLeft;
         }
 
-        public Stack<int> ReversePath(int[] array)
+        public List<int> StorePath(int[] array) // reverse the path and store it
         {
             var path = new Stack<int>();
             var reachLeftIndex = array.Length - 1;
@@ -44,13 +49,16 @@ namespace ArraySolver.Implementation.Services
                 if (reachLeftIndex == array[reachLeftIndex])
                 {
                     Failure = true;
-                    break;
+                    return new List<int>();
                 }
                 path.Push(reachLeftIndex);
                 reachLeftIndex = array[reachLeftIndex];
             }
 
-            return path;
+            var result = path.ToList();
+            result.Reverse();
+
+            return result;
         }
 
     }

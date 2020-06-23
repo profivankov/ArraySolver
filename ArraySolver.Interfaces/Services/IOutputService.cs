@@ -6,7 +6,7 @@ namespace ArraySolver.Interfaces.Services
 {
     public interface IOutputService
     {
-        public string PrepareOutput(int[] array, Stack<int> path, bool failure);
+        public string PrepareOutput(int[] array, List<int> path, bool failure);
         public string PrepareCacheOutput();
     }
 }

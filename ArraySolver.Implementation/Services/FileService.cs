@@ -41,8 +41,6 @@ namespace ArraySolver.Implementation.Services
                 arrayList.Add(oneLineList.ToArray()); //store converted array in list
             }
 
-
-
             return arrayList;
         }
 

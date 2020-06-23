@@ -7,7 +7,7 @@ namespace ArraySolver.Interfaces.Services
     public interface IArrayService
     {
         public bool Failure { get; set; }
-        public int[] FindPath(int[] array);
-        public Stack<int> ReversePath(int[] array);
+        public int[] GetReach(int[] array);
+        public List<int> StorePath(int[] array);
     }
 }

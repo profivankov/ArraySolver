@@ -8,12 +8,12 @@ namespace ArraySolver.Implementation.Services
 {
     public class OutputService : IOutputService
     {
-        private ICacheService _cacheService;
+        private readonly ICacheService _cacheService;
         public OutputService(ICacheService cacheService)
         {
             _cacheService = cacheService;
         }
-        public string PrepareOutput(int[] array, Stack<int> path, bool failure)
+        public string PrepareOutput(int[] array, List<int> path, bool failure)
         {
             var steps = path.Count();
             var resultString = "Array: ";
@@ -30,15 +30,16 @@ namespace ArraySolver.Implementation.Services
             else
             {
                 resultString += "Most efficient path:" + Environment.NewLine;
-                while (path.Count() != 0)
+
+                for (int i = 0; i < path.Count(); i ++)
                 {
-                    if (path.Count() > 1)
+                    if (i == path.Count() - 1)
                     {
-                        resultString += array[path.Pop()] + " -> ";
+                        resultString += array[path[i]];
                     }
                     else
                     {
-                        resultString += array[path.Pop()];
+                        resultString += array[path[i]] + " -> ";
                     }
                 }
                 resultString += Environment.NewLine +"Number of steps: " + (steps - 1) + Environment.NewLine;
